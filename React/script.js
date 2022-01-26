@@ -22,13 +22,13 @@ const personalMovieDB = {
     actors: {},
     genres: [],
     private: false,
-    start: function() {
+    start: function () {
         personalMovieDB.couunt = prompt('Сколько фильмов вы уже посмотрели?', '');
         while (personalMovieDB.couunt == '' || personalMovieDB.couunt == null || isNaN(personalMovieDB.couunt)) {
             personalMovieDB.couunt = prompt('Сколько фильмов вы уже посмотрели?', '');
         }
     },
-    rememberMyFilms: function() {
+    rememberMyFilms: function () {
         for (let i = 0; i < 2; i++) {
             const a = prompt('Один из последних просмотренных фильмов?', ''),
                 b = prompt('На сколько оцените его?', '');
@@ -39,7 +39,7 @@ const personalMovieDB = {
             }
         }
     },
-    detectPersonalLevel: function() {
+    detectPersonalLevel: function () {
         if (personalMovieDB.couunt < 10) {
             window.alert("Просмотрено довольно мало фильмов");
         } else if (personalMovieDB.couunt <= 30) {
@@ -50,21 +50,31 @@ const personalMovieDB = {
             window.alert("Произошла ошибка");
         }
     },
-    showMyDB: function() {
+    showMyDB: function () {
         if (!personalMovieDB.private) {
             console.log(personalMovieDB);
         }
     },
-    writeYourGenres: function() {
-        for (let i = 1; i <= 3; i++) {
-            personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    writeYourGenres: function () {
+        for (let i = 1; i <2; i++) {
+            let genres = prompt(`Ваш любимый жанр через запятую`).toLocaleLowerCase();
+
+            if (genres == '' || genres == null) {
+                console.log('вы ввели некорректные данные');
+                i--;
+            } else {
+                this.genres = genres.split(', ');
+                this.genres.sort();
+            }
         }
-    
+        personalMovieDB.genres.forEach((item, i) => {
+            console.log(`Любимый жанр #${i+1} это ${item}`);
+        });
     },
-    toggleVisibleMyDB: function() {
+    toggleVisibleMyDB: function () {
         if (this.private) {
             this.private = false;
-        } else {this.private = true;}
+        } else { this.private = true; }
     }
 };
 
